@@ -29,4 +29,8 @@
     <ProjectReference Include="..\Shared\MOJ.SharedKernel\MOJ.SharedKernel.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="FunctionalTests\" />
+  </ItemGroup>
+
 </Project>

@@ -35,7 +35,12 @@ internal sealed class SupplierBuilder
 
     public Supplier Build()
     {
-        return new Supplier(Name);
+        var supplier = new Supplier(Name)
+        {
+            Reference = Reference,
+            Id = Id
+        };
+        return supplier;
     }
 
 }
