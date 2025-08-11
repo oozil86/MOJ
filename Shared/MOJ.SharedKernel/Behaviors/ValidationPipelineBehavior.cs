@@ -1,7 +1,7 @@
-﻿using FluentValidation.Results;
-using FluentValidation;
-using MOJ.SharedKernel.Contracts;
+﻿using FluentValidation;
+using FluentValidation.Results;
 using MediatR;
+using MOJ.SharedKernel.Contracts;
 using System.Reflection;
 
 namespace MOJ.SharedKernel.Behaviors;

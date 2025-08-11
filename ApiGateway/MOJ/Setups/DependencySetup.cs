@@ -39,6 +39,7 @@ internal static class DependencySetup
         }
 
         app.RegisterBasicMiddleware();
+        app.RegisterAppMiddleware();
 
         app.Run();
 

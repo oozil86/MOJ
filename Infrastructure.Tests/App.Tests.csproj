@@ -9,6 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="FunctionalTests\**" />
+    <EmbeddedResource Remove="FunctionalTests\**" />
+    <None Remove="FunctionalTests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -27,10 +33,6 @@
   <ItemGroup>
     <ProjectReference Include="..\CoreApp\Src\MOJ.Infrastructure\MOJ.Infrastructure.csproj" />
     <ProjectReference Include="..\Shared\MOJ.SharedKernel\MOJ.SharedKernel.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="FunctionalTests\" />
   </ItemGroup>
 
 </Project>
