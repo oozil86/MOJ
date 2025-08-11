@@ -14,6 +14,7 @@ public static class DependencySetup
         services.RegisterDbProvider(configuration);
 
         services.AddScoped<ISupplierRepository, SupplierRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
 
         Clock.Initialize();
 
