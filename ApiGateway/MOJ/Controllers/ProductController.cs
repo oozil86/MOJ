@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using MOJ.Application.Features.Product.CreateProduct;
 using MOJ.Application.Features.Product.DeleteProduct;
+using MOJ.Application.Features.Product.UpdateProduct;
+using MOJ.Application.Features.Product.GetProducts;
 
 namespace MOJ.Controllers;
 
@@ -18,23 +20,23 @@ public class ProductController(IMediator mediator) : ControllerBase
         return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
     }
 
-    //[HttpGet("{Reference}")]
-    //public async Task<IActionResult> Get(
-    //   [FromRoute] GetProduct.Request request,
-    //   CancellationToken cancellationToken = default)
-    //{
-    //    var result = await mediator.Send(request, cancellationToken);
-    //    return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
-    //}
+    [HttpGet]
+    public async Task<IActionResult> Get(
+       [FromQuery] GetProducts.Request request,
+       CancellationToken cancellationToken = default)
+    {
+        var result = await mediator.Send(request, cancellationToken);
+        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+    }
 
-    //[HttpPut]
-    //public async Task<IActionResult> Put(
-    //  UpdateProduct.Request request,
-    //  CancellationToken cancellationToken = default)
-    //{
-    //    var result = await mediator.Send(request, cancellationToken);
-    //    return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
-    //}
+    [HttpPut]
+    public async Task<IActionResult> Put(
+      UpdateProduct.Request request,
+      CancellationToken cancellationToken = default)
+    {
+        var result = await mediator.Send(request, cancellationToken);
+        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+    }
 
     [HttpDelete]
     public async Task<IActionResult> Delete(

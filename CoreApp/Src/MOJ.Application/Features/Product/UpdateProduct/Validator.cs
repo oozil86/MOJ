@@ -1,24 +1,19 @@
 ﻿using FluentValidation;
 using MOJ.Domain.Enums;
 using MOJ.SharedKernel.Extensions;
-using static MOJ.Application.Features.Product.CreateProduct.CreateProduct;
+using static MOJ.Application.Features.Product.UpdateProduct.UpdateProduct;
 
 
-
-namespace MOJ.Application.Features.Product.CreateProduct;
+namespace MOJ.Application.Features.Employee.UpdateEmployee;
 
 public class Validator : AbstractValidator<Request>
 {
     public Validator()
     {
+        RuleFor(x => x.Reference).NotEmptyGuid();
         RuleFor(x => x.Name)
             .NotNullOrWhiteSpaceString()
             .MaximumLength(250);
-
-        RuleFor(x => x.SupplierReference)
-            .NotNull()
-            .NotEmpty()
-            .WithMessage("SupplierReference Should Be Not Empty");
 
         RuleFor(x => x.UnitsInStock)
             .NotNull()
