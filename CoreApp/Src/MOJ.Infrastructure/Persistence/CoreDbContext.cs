@@ -9,8 +9,7 @@ namespace MOJ.Infrastructure.Persistence
 {
     public sealed class CoreDbContext(
         DbContextOptions<CoreDbContext> options,
-        IMediator mediator,
-        IHttpContextAccessor httpContext
+        IMediator mediator
     ) : DbContext(options), IUnitOfWork
     {
         #region Entities
