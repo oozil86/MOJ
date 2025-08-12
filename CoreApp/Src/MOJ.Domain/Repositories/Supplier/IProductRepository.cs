@@ -9,4 +9,5 @@ public interface IProductRepository : IBaseRepository<Product>
     public Task<List<ProductDto>> GetProductsByNameAsync(string name, CancellationToken cancellationToken = default);
     public Task<List<ProductDto>> GetReOrderProductsAsync(int limit, CancellationToken cancellationToken = default);
     public Task<List<ProductDto>> GetMinimumProductsAsync(CancellationToken cancellationToken = default);
+    public Task<ProductDto?> GetProductAsync(Guid reference, CancellationToken cancellationToken = default);
 }

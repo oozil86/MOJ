@@ -21,6 +21,8 @@ internal static class DependencySetup
 
         builder.AddConfigurationSetup();
 
+        builder.Services.AddCorsConfig();
+
 
         builder.Services.RegisterApplicationServices();
 
@@ -40,6 +42,7 @@ internal static class DependencySetup
 
         app.RegisterBasicMiddleware();
         app.RegisterAppMiddleware();
+        app.UseCors();
 
         app.Run();
 

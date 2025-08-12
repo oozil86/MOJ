@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MOJ.Domain.DTOs.Supplier;
 
 namespace MOJ.Application.Features.Supplier;
 
@@ -15,5 +16,6 @@ internal sealed class SupplierProfile : Profile
         });
 
         CreateMap<Domain.Entities.Supplier, UpdateSupplier.UpdateSupplier.Response>();
+        CreateMap<Domain.Entities.Supplier, SupplierDto>();
     }
 }

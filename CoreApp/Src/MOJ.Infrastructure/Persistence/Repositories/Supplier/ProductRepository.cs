@@ -8,7 +8,7 @@ using MOJ.SharedKernel.Data;
 
 namespace MOJ.Infrastructure.Persistence.Repositories.Supplier;
 
-public class ProductRepository(CoreDbContext context,IMapper mapper) : BaseRepository<Product>(context)
+public class ProductRepository(CoreDbContext context, IMapper mapper) : BaseRepository<Product>(context)
     , IProductRepository
 {
     public async Task<List<ProductDto>> GetMinimumProductsAsync(CancellationToken cancellationToken = default)
@@ -19,13 +19,24 @@ public class ProductRepository(CoreDbContext context,IMapper mapper) : BaseRepos
         .ProjectTo<ProductDto>(mapper.ConfigurationProvider)
         .ToListAsync(cancellationToken: cancellationToken);
 
-    public async Task<List<ProductDto>> GetProductsByNameAsync(string name, CancellationToken cancellationToken = default) 
+    public async Task<ProductDto?> GetProductAsync(Guid reference, CancellationToken cancellationToken = default)
         => await context
         .Products
-        .Where(p => p.Name.Contains(name))
-        .ProjectTo<ProductDto>(mapper.ConfigurationProvider)    
-        .ToListAsync(cancellationToken);
+        .Where(c => c.Reference == reference)
+        .ProjectTo<ProductDto>(mapper.ConfigurationProvider)
+        .SingleOrDefaultAsync(cancellationToken);
 
+    public async Task<List<ProductDto>> GetProductsByNameAsync(string name, CancellationToken cancellationToken = default)
+    {
+        IQueryable<Product> query = context.Products;
+
+        if (!string.IsNullOrEmpty(name))
+            query = query.Where(p => p.Name.Contains(name));
+
+        return await query
+          .ProjectTo<ProductDto>(mapper.ConfigurationProvider)
+          .ToListAsync(cancellationToken);
+    }
     public async Task<List<ProductDto>> GetReOrderProductsAsync(int limit, CancellationToken cancellationToken = default)
         => await context
         .Products

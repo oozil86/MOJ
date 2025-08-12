@@ -1,11 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using MOJ.Domain.DTOs.Supplier;
 using MOJ.Domain.Repositories.Supplier;
 using MOJ.SharedKernel.Data;
 
 namespace MOJ.Infrastructure.Persistence.Repositories.Supplier;
 
-public class SupplierRepository(CoreDbContext context) : BaseRepository<Domain.Entities.Supplier>(context)
+public class SupplierRepository(CoreDbContext context, IMapper mapper) : BaseRepository<Domain.Entities.Supplier>(context)
     , ISupplierRepository
 {
     public async Task<SupplierDto?> GetLargestSuppliersAsync(CancellationToken cancellationToken = default)
@@ -22,4 +24,18 @@ public class SupplierRepository(CoreDbContext context) : BaseRepository<Domain.E
                 .Select(c => new SupplierDto { Name = c.Value?.Name, Reference = c.Key })
                 .FirstOrDefault();
     }
+
+    public async Task<SupplierDto?> GetSupplierAsync(Guid reference, CancellationToken cancellationToken = default)
+      => await context
+        .Suppliers
+        .Where(c => c.Reference == reference)
+        .ProjectTo<SupplierDto>(mapper.ConfigurationProvider)
+        .SingleOrDefaultAsync(cancellationToken);
+
+    public async Task<List<SupplierDto>> GetSuppliersAsync(CancellationToken cancellationToken = default)
+        => await context
+            .Suppliers
+            .ProjectTo<SupplierDto>(mapper.ConfigurationProvider)
+            .ToListAsync(cancellationToken);
+
 }
